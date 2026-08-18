@@ -15,12 +15,10 @@ Chrome extension that adds a cute clip-art puppy to the bottom of every webpage.
 - Roams along the bottom (slow / normal / excited), staying away from the corners
 - Idle: blink, ear twitch, look around, stretch/yawn
 - Tail wags calm or excited
-- Each puppy roams independently and keeps a small distance from the others
 
 ## Controls
 - **Click** — give paw
 - **Double-click** — roll
 - **Shift+click** — biscuit treat + chew
-- **Toolbar icon** — choose 1–5 puppies (applies to open tabs immediately)
 
 Store listing copy and promo images are in `store-listing.md` and `store-assets/`.
