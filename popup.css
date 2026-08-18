@@ -1,0 +1,14 @@
+:root { color-scheme: light dark; }
+
+body {
+  margin: 0;
+  padding: 16px 18px 18px;
+  width: 240px;
+  font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+h1 { margin: 0 0 14px; font-size: 15px; }
+.field { display: block; margin-bottom: 8px; font-weight: 600; }
+input[type="range"] { width: 100%; }
+.count-readout { margin: 10px 0 4px; font-size: 13px; }
+.hint { margin: 0; opacity: 0.65; font-size: 12px; }
