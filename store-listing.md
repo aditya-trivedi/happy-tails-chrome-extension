@@ -25,11 +25,6 @@ Adds a cute animated clip-art puppy companion to the bottom of websites.
 Hello Puppy injects a decorative puppy overlay onto http and https pages so the companion can appear while you browse. It does not read page content, accounts, or form data, and it does not send anything off the device.
 ```
 
-**Permission justification** (`storage`):
-```
-Saves how many puppies you want on the page.
-```
-
 ## Detailed description
 
 ```
@@ -41,8 +36,6 @@ Play with it:
 • Click to get a paw
 • Double-click for a roll
 • Shift-click to offer a biscuit
-
-Use the toolbar icon to choose 1–5 puppies.
 
 Hello Puppy runs entirely on your computer. It does not collect personal data, does not talk to remote servers, and does not change how websites work beyond drawing the companion on top of the page.
 
@@ -71,7 +64,6 @@ Take 1–2 extra real screenshots in Chrome after loading the unpacked extension
 - `content.js`
 - `doggo-dog.js`
 - `doggo.css`
-- `popup.html` `popup.js` `popup.css`
 - `icons/`
 
 Do **not** include `.git/`, `README.md`, `preview.html`, `store-listing.md`, or `store-assets/`.

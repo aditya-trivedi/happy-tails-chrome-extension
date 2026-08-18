@@ -4,7 +4,6 @@
 
   const W = 115;
   const DOUBLE_MS = 280;
-  const MIN_PEER_GAP = 78;
 
   const MOUTH = {
     idle: "M50 38 Q56 42 62 38",
@@ -78,7 +77,6 @@
   function createDoggo(options) {
     const opts = options || {};
     const host = opts.root;
-    const peers = opts.peers || [];
     const svgMarkup = opts.svg || DEFAULT_SVG;
     const mouthPaths = Object.assign({}, MOUTH, opts.mouthPaths || {});
 
@@ -130,14 +128,6 @@
       facingRight = !!right;
       // Art faces right by default; flip only when facing left.
       dog.classList.toggle("doggo-flip", !facingRight);
-    }
-
-    function tooClose(x) {
-      for (const p of peers) {
-        if (p === api) continue;
-        if (Math.abs(p.getX() - x) < MIN_PEER_GAP) return true;
-      }
-      return false;
     }
 
     function setExcited(ms) {
@@ -334,7 +324,6 @@
         if (candidate < minX() || candidate > maxX()) candidate = posX - dir * span;
         candidate = clamp(candidate, minX(), maxX());
         if (Math.abs(candidate - posX) < 40) continue;
-        if (tooClose(candidate)) continue;
         target = candidate;
         break;
       }
@@ -429,7 +418,6 @@
 
     const api = {
       el: dog,
-      getX: () => posX,
       onPointerMove(clientX, clientY) {
         if (destroyed) return;
         lookOverrideUntil = Date.now() + 400;
