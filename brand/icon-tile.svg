@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <rect width="128" height="128" rx="28" fill="#FFF6EC"/>
+  <g transform="translate(14 14)">
+    <!-- Pawsome mark: species-neutral paw, violet, heart cutout. Token: violet #6C4CE0 -->
+  <g fill="#6C4CE0">
+    <ellipse cx="18" cy="40" rx="11" ry="14"/>
+    <ellipse cx="38" cy="22" rx="11" ry="14.5"/>
+    <ellipse cx="62" cy="22" rx="11" ry="14.5"/>
+    <ellipse cx="82" cy="40" rx="11" ry="14"/>
+    <path fill-rule="evenodd" d="M50 94C20 94 10 62 26 50C36 42 64 42 74 50C90 62 80 94 50 94Z M50 81.5C37 72 33.5 60.5 42.5 56.8C46 55.2 48.4 57.6 50 61.2C51.6 57.6 54 55.2 57.5 56.8C66.5 60.5 63 72 50 81.5Z"/>
+  </g>
+  </g>
+</svg>

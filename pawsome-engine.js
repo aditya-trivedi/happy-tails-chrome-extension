@@ -1,49 +1,10 @@
-
 (function () {
-  if (window.DoggoDog) return;
+  if (window.Pawsome && window.Pawsome.createPet) return;
+
+  window.Pawsome = window.Pawsome || {};
 
   const W = 115;
   const DOUBLE_MS = 280;
-
-  const MOUTH = {
-    idle: "M50 38 Q56 42 62 38",
-    yawn: "M48 37 Q56 52 64 37",
-    chew: "M50 38 Q56 46 62 38",
-  };
-
-  const DEFAULT_SVG = `
-    <svg viewBox="0 0 96 67" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g class="doggo-stage">
-        <g class="doggo-figure">
-          <ellipse class="doggo-tail" cx="12" cy="40" rx="11" ry="4.5" fill="#C68642"/>
-          <ellipse class="doggo-body" cx="44" cy="46" rx="24" ry="15" fill="#E0A86A"/>
-          <ellipse cx="34" cy="48" rx="5" ry="4" fill="#C68642" opacity="0.45"/>
-          <ellipse class="doggo-leg doggo-leg-back" cx="32" cy="58" rx="5.5" ry="8" fill="#C68642"/>
-          <ellipse class="doggo-leg doggo-leg-front doggo-paw-leg" cx="56" cy="58" rx="5.5" ry="8" fill="#C68642"/>
-          <g class="doggo-head">
-            <g class="doggo-ear doggo-ear-left">
-              <ellipse cx="40" cy="16" rx="7" ry="11" fill="#C68642"/>
-              <ellipse cx="41" cy="17" rx="3.2" ry="6" fill="#E8B48A"/>
-            </g>
-            <g class="doggo-ear doggo-ear-right">
-              <ellipse cx="70" cy="16" rx="7" ry="11" fill="#C68642"/>
-              <ellipse cx="69" cy="17" rx="3.2" ry="6" fill="#E8B48A"/>
-            </g>
-            <circle cx="56" cy="28" r="15" fill="#E0A86A"/>
-            <ellipse cx="56" cy="34" rx="9" ry="6.5" fill="#F0D0B0"/>
-            <circle class="doggo-eye-white" cx="50" cy="26" r="3.6" fill="#FFF8F0"/>
-            <circle class="doggo-eye-white" cx="62" cy="26" r="3.6" fill="#FFF8F0"/>
-            <circle class="doggo-pupil doggo-pupil-left" cx="50" cy="26" r="1.7" fill="#2D1B0E"/>
-            <circle class="doggo-pupil doggo-pupil-right" cx="62" cy="26" r="1.7" fill="#2D1B0E"/>
-            <ellipse class="doggo-eyelid doggo-eyelid-left" cx="50" cy="26" rx="3.8" ry="3.8" fill="#E0A86A"/>
-            <ellipse class="doggo-eyelid doggo-eyelid-right" cx="62" cy="26" rx="3.8" ry="3.8" fill="#E0A86A"/>
-            <ellipse cx="56" cy="32" rx="3.2" ry="2.2" fill="#2D1B0E"/>
-            <path class="doggo-mouth" d="M50 38 Q56 42 62 38" fill="none" stroke="#2D1B0E" stroke-width="1.5" stroke-linecap="round"/>
-          </g>
-        </g>
-      </g>
-    </svg>
-  `;
 
   const GAITS = {
     slow: { speed: [55, 85], span: [80, 200], weight: 3 },
@@ -74,31 +35,34 @@
     return "normal";
   }
 
-  function createDoggo(options) {
+  function createPet(options) {
     const opts = options || {};
     const host = opts.root;
-    const svgMarkup = opts.svg || DEFAULT_SVG;
-    const mouthPaths = Object.assign({}, MOUTH, opts.mouthPaths || {});
+    const art = window.Pawsome;
+    const species = opts.species === "cat" ? "cat" : "dog";
+    const svgMarkup = opts.svg || (species === "cat" ? art.CAT_SVG : art.DOG_SVG);
+    const defaultMouth = (art.MOUTH && art.MOUTH[species]) || art.MOUTH.dog;
+    const mouthPaths = Object.assign({}, defaultMouth, opts.mouthPaths || {});
 
-    const dog = document.createElement("div");
-    dog.className = "doggo-companion doggo-idle doggo-calm";
-    dog.setAttribute("role", "img");
-    dog.setAttribute("aria-label", "Hello Puppy companion");
-    dog.style.setProperty("--doggo-phase", `-${(Math.random() * 2.4).toFixed(2)}s`);
-    dog.innerHTML = svgMarkup;
-    if (!dog.querySelector(".doggo-figure")) {
-      dog.innerHTML = DEFAULT_SVG;
+    const pet = document.createElement("div");
+    pet.className = `pawsome-pet pawsome-idle pawsome-calm pawsome-${species}`;
+    pet.setAttribute("role", "img");
+    pet.setAttribute("aria-label", `Pawsome ${species} companion`);
+    pet.style.setProperty("--pawsome-phase", `-${(Math.random() * 2.4).toFixed(2)}s`);
+    pet.innerHTML = svgMarkup;
+    if (!pet.querySelector(".pawsome-figure")) {
+      pet.innerHTML = art.DOG_SVG;
     }
 
     const treat = document.createElement("div");
-    treat.className = "doggo-treat";
+    treat.className = "pawsome-treat";
 
-    host.appendChild(dog);
+    host.appendChild(pet);
     host.appendChild(treat);
 
-    const pupilL = dog.querySelector(".doggo-pupil-left");
-    const pupilR = dog.querySelector(".doggo-pupil-right");
-    const mouth = dog.querySelector(".doggo-mouth");
+    const pupilL = pet.querySelector(".pawsome-pupil-left");
+    const pupilR = pet.querySelector(".pawsome-pupil-right");
+    const mouth = pet.querySelector(".pawsome-mouth");
 
     let destroyed = false;
     let busy = false;
@@ -121,49 +85,48 @@
 
     function setPos(x) {
       posX = clamp(x, minX(), maxX());
-      dog.style.left = `${posX}px`;
+      pet.style.left = `${posX}px`;
     }
 
     function setFacing(right) {
       facingRight = !!right;
-      // Art faces right by default; flip only when facing left.
-      dog.classList.toggle("doggo-flip", !facingRight);
+      pet.classList.toggle("pawsome-flip", !facingRight);
     }
 
     function setExcited(ms) {
       excitedUntil = Date.now() + ms;
-      dog.classList.add("doggo-excited");
-      dog.classList.remove("doggo-calm");
+      pet.classList.add("pawsome-excited");
+      pet.classList.remove("pawsome-calm");
     }
 
     function refreshTailMood() {
       if (destroyed) return;
       if (Date.now() < excitedUntil || busy) {
-        dog.classList.add("doggo-excited");
-        dog.classList.remove("doggo-calm");
+        pet.classList.add("pawsome-excited");
+        pet.classList.remove("pawsome-calm");
       } else {
-        dog.classList.add("doggo-calm");
-        dog.classList.remove("doggo-excited");
+        pet.classList.add("pawsome-calm");
+        pet.classList.remove("pawsome-excited");
       }
     }
 
     function clearActionClasses() {
-      dog.classList.remove(
-        "doggo-hop",
-        "doggo-roll",
-        "doggo-paw",
-        "doggo-stretch",
-        "doggo-chew",
-        "doggo-walk",
-        "doggo-walk-slow",
-        "doggo-walk-normal",
-        "doggo-walk-excited",
-        "doggo-blink",
-        "doggo-peek",
-        "doggo-look-left",
-        "doggo-look-right",
-        "doggo-ear-twitch-left",
-        "doggo-ear-twitch-right"
+      pet.classList.remove(
+        "pawsome-hop",
+        "pawsome-roll",
+        "pawsome-paw",
+        "pawsome-stretch",
+        "pawsome-chew",
+        "pawsome-walk",
+        "pawsome-walk-slow",
+        "pawsome-walk-normal",
+        "pawsome-walk-excited",
+        "pawsome-blink",
+        "pawsome-peek",
+        "pawsome-look-left",
+        "pawsome-look-right",
+        "pawsome-ear-twitch-left",
+        "pawsome-ear-twitch-right"
       );
       if (mouth) mouth.setAttribute("d", mouthPaths.idle);
     }
@@ -171,16 +134,16 @@
     async function withBusy(fn) {
       if (destroyed || busy) return false;
       busy = true;
-      dog.classList.add("doggo-busy");
-      dog.classList.remove("doggo-idle");
+      pet.classList.add("pawsome-busy");
+      pet.classList.remove("pawsome-idle");
       try {
         await fn();
       } finally {
         busy = false;
         if (!destroyed) {
           clearActionClasses();
-          dog.classList.remove("doggo-busy");
-          dog.classList.add("doggo-idle");
+          pet.classList.remove("pawsome-busy");
+          pet.classList.add("pawsome-idle");
           refreshTailMood();
         }
       }
@@ -189,7 +152,7 @@
 
     function playClass(name, ms) {
       return withBusy(async () => {
-        dog.classList.add(name);
+        pet.classList.add(name);
         setExcited(ms + 400);
         await wait(ms);
       });
@@ -197,7 +160,7 @@
 
     function givePaw() {
       return withBusy(async () => {
-        dog.classList.add("doggo-paw");
+        pet.classList.add("pawsome-paw");
         setExcited(1400);
         await wait(1000);
       });
@@ -205,39 +168,39 @@
 
     async function blink() {
       if (destroyed || busy) return;
-      dog.classList.add("doggo-blink");
+      pet.classList.add("pawsome-blink");
       await wait(200);
       if (destroyed) return;
-      dog.classList.remove("doggo-blink");
+      pet.classList.remove("pawsome-blink");
     }
 
     async function earTwitch() {
       if (destroyed || busy) return;
-      const cls = Math.random() < 0.5 ? "doggo-ear-twitch-left" : "doggo-ear-twitch-right";
-      dog.classList.add(cls);
+      const cls = Math.random() < 0.5 ? "pawsome-ear-twitch-left" : "pawsome-ear-twitch-right";
+      pet.classList.add(cls);
       await wait(300);
       if (destroyed) return;
-      dog.classList.remove(cls);
+      pet.classList.remove(cls);
     }
 
     async function lookAround() {
       if (destroyed || busy || Date.now() < lookOverrideUntil) return;
       await withBusy(async () => {
-        dog.classList.add("doggo-look-left");
+        pet.classList.add("pawsome-look-left");
         await wait(550);
         if (destroyed) return;
-        dog.classList.remove("doggo-look-left");
-        dog.classList.add("doggo-look-right");
+        pet.classList.remove("pawsome-look-left");
+        pet.classList.add("pawsome-look-right");
         await wait(550);
         if (destroyed) return;
-        dog.classList.remove("doggo-look-right");
+        pet.classList.remove("pawsome-look-right");
         await wait(200);
       });
     }
 
     async function stretchYawn() {
       await withBusy(async () => {
-        dog.classList.add("doggo-stretch");
+        pet.classList.add("pawsome-stretch");
         if (mouth) mouth.setAttribute("d", mouthPaths.yawn);
         await wait(1400);
         if (destroyed) return;
@@ -248,7 +211,7 @@
 
     function updateEyes(clientX, clientY) {
       if (destroyed || !pupilL || !pupilR || busy) return;
-      const rect = dog.getBoundingClientRect();
+      const rect = pet.getBoundingClientRect();
       const cx = rect.left + rect.width * (facingRight ? 0.62 : 0.4);
       const cy = rect.top + rect.height * 0.32;
       const dx = clientX - cx;
@@ -257,7 +220,6 @@
       const max = 2.3;
       const ox = (dx / dist) * Math.min(max, dist / 36);
       const oy = (dy / dist) * Math.min(max, dist / 36);
-      // Compensate for scaleX(-1) when facing left.
       const localX = facingRight ? ox : -ox;
       pupilL.setAttribute("transform", `translate(${localX} ${oy})`);
       pupilR.setAttribute("transform", `translate(${localX} ${oy})`);
@@ -266,11 +228,11 @@
     function peekFromScroll() {
       if (destroyed || busy) return;
       lookOverrideUntil = Date.now() + 900;
-      dog.classList.remove("doggo-look-left", "doggo-look-right");
-      dog.classList.add("doggo-peek");
+      pet.classList.remove("pawsome-look-left", "pawsome-look-right");
+      pet.classList.add("pawsome-peek");
       setExcited(700);
       clearTimeout(scrollPeekTimer);
-      scrollPeekTimer = setTimeout(() => dog.classList.remove("doggo-peek"), 700);
+      scrollPeekTimer = setTimeout(() => pet.classList.remove("pawsome-peek"), 700);
     }
 
     function walkTo(targetX, speedPxPerSec = 140, gait = "normal") {
@@ -279,8 +241,8 @@
         const dist = targetX - start;
         if (Math.abs(dist) < 4) return;
         setFacing(dist > 0);
-        dog.classList.remove("doggo-walk-slow", "doggo-walk-normal", "doggo-walk-excited");
-        dog.classList.add("doggo-walk", `doggo-walk-${gait}`);
+        pet.classList.remove("pawsome-walk-slow", "pawsome-walk-normal", "pawsome-walk-excited");
+        pet.classList.add("pawsome-walk", `pawsome-walk-${gait}`);
         if (gait === "excited") {
           setExcited(Math.max(800, (Math.abs(dist) / speedPxPerSec) * 1000 + 400));
         } else if (gait === "normal") {
@@ -308,7 +270,7 @@
           requestAnimationFrame(step);
         });
         if (destroyed) return;
-        dog.classList.remove("doggo-walk", "doggo-walk-slow", "doggo-walk-normal", "doggo-walk-excited");
+        pet.classList.remove("pawsome-walk", "pawsome-walk-slow", "pawsome-walk-normal", "pawsome-walk-excited");
       });
     }
 
@@ -348,24 +310,24 @@
     async function feedTreat() {
       await withBusy(async () => {
         setExcited(2000);
-        const rect = dog.getBoundingClientRect();
+        const rect = pet.getBoundingClientRect();
         treat.style.left = `${rect.left + (facingRight ? rect.width - 34 : 18)}px`;
         treat.style.top = `${rect.top + 16}px`;
-        treat.classList.remove("doggo-treat-show");
+        treat.classList.remove("pawsome-treat-show");
         void treat.offsetWidth;
-        treat.classList.add("doggo-treat-show");
+        treat.classList.add("pawsome-treat-show");
         await wait(700);
         if (destroyed) return;
-        dog.classList.add("doggo-chew");
+        pet.classList.add("pawsome-chew");
         if (mouth) mouth.setAttribute("d", mouthPaths.chew);
         await wait(1700);
         if (destroyed) return;
-        treat.classList.remove("doggo-treat-show");
+        treat.classList.remove("pawsome-treat-show");
         if (mouth) mouth.setAttribute("d", mouthPaths.idle);
       });
     }
 
-    async function onDogClick(e) {
+    async function onPetClick(e) {
       e.preventDefault();
       e.stopPropagation();
       if (destroyed) return;
@@ -378,7 +340,7 @@
       if (now - lastClickAt < DOUBLE_MS) {
         lastClickAt = 0;
         clearTimeout(clickTimer);
-        await playClass("doggo-roll", 1100);
+        await playClass("pawsome-roll", 1100);
         return;
       }
       lastClickAt = now;
@@ -417,11 +379,12 @@
     }
 
     const api = {
-      el: dog,
+      el: pet,
+      species,
       onPointerMove(clientX, clientY) {
         if (destroyed) return;
         lookOverrideUntil = Date.now() + 400;
-        dog.classList.remove("doggo-look-left", "doggo-look-right", "doggo-peek");
+        pet.classList.remove("pawsome-look-left", "pawsome-look-right", "pawsome-peek");
         updateEyes(clientX, clientY);
       },
       onScrollBurst() {
@@ -437,27 +400,29 @@
         intervals.length = 0;
         clearTimeout(clickTimer);
         clearTimeout(scrollPeekTimer);
-        dog.removeEventListener("click", onDogClick);
-        dog.remove();
+        pet.removeEventListener("click", onPetClick);
+        pet.remove();
         treat.remove();
       },
     };
 
     setPos(typeof opts.startX === "number" ? opts.startX : minX() + Math.random() * Math.max(0, maxX() - minX()));
     setFacing(Math.random() < 0.5);
-    dog.addEventListener("click", onDogClick);
+    pet.addEventListener("click", onPetClick);
 
     intervals.push(setInterval(tickIdle, 1600));
     intervals.push(setInterval(refreshTailMood, 400));
 
     setTimeout(() => {
-      if (!destroyed && !busy) playClass("doggo-hop", 550);
+      if (!destroyed && !busy) playClass("pawsome-hop", 550);
     }, 400 + Math.random() * 600);
 
-    setTimeout(() => scheduleRoam(), 1200 + Math.random() * 1600);
+    if (opts.roam !== false) {
+      setTimeout(() => scheduleRoam(), 1200 + Math.random() * 1600);
+    }
 
     return api;
   }
 
-  window.DoggoDog = { createDoggo, MOUTH, DEFAULT_SVG };
+  window.Pawsome.createPet = createPet;
 })();

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 67" fill="none">
+  <!-- Pawsome dog mascot. Coats from brand/tokens.json -->
+  <ellipse cx="12" cy="40" rx="11" ry="4.5" fill="#C7802F"/>
+  <ellipse cx="44" cy="46" rx="24" ry="15" fill="#E9A85C"/>
+  <ellipse cx="34" cy="48" rx="5" ry="4" fill="#C7802F" opacity="0.45"/>
+  <ellipse cx="32" cy="58" rx="5.5" ry="8" fill="#C7802F"/>
+  <ellipse cx="56" cy="58" rx="5.5" ry="8" fill="#C7802F"/>
+  <ellipse cx="40" cy="16" rx="7" ry="11" fill="#C7802F"/>
+  <ellipse cx="41" cy="17" rx="3.2" ry="6" fill="#F7D8B4"/>
+  <ellipse cx="70" cy="16" rx="7" ry="11" fill="#C7802F"/>
+  <ellipse cx="69" cy="17" rx="3.2" ry="6" fill="#F7D8B4"/>
+  <circle cx="56" cy="28" r="15" fill="#E9A85C"/>
+  <ellipse cx="56" cy="34" rx="9" ry="6.5" fill="#F7D8B4"/>
+  <circle cx="50" cy="26" r="3.6" fill="#FFF9F2"/>
+  <circle cx="62" cy="26" r="3.6" fill="#FFF9F2"/>
+  <circle cx="50" cy="26" r="1.7" fill="#241C3B"/>
+  <circle cx="62" cy="26" r="1.7" fill="#241C3B"/>
+  <ellipse cx="56" cy="32" rx="3.2" ry="2.2" fill="#241C3B"/>
+  <path d="M50 38 Q56 42 62 38" fill="none" stroke="#241C3B" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

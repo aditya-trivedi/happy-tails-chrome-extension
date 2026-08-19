@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Hello Puppy",
-  "version": "2.1.0",
-  "description": "A cute clip-art puppy that lives at the bottom of every webpage.",
+  "name": "Pawsome",
+  "version": "3.0.0",
+  "description": "A little dog or cat companion that lives at the bottom of every webpage.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "Hello Puppy",
+    "default_title": "Pawsome",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -19,8 +19,8 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["doggo-dog.js", "content.js"],
-      "css": ["doggo.css"],
+      "js": ["pawsome-pets.js", "pawsome-engine.js", "content.js"],
+      "css": ["pawsome.css"],
       "run_at": "document_idle"
     }
   ]
