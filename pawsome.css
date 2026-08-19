@@ -1,0 +1,425 @@
+#pawsome-root {
+  all: initial;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  --pawsome-violet: #6c4ce0;
+  --pawsome-violet-deep: #43299b;
+  --pawsome-mango: #ffb13d;
+  --pawsome-blush: #ff7a9c;
+  --pawsome-cream: #fff6ec;
+  --pawsome-ink: #241c3b;
+  --pawsome-muted: #7a7396;
+}
+
+#pawsome-root .pawsome-pet {
+  --pawsome-tail-origin: 16px 40px;
+  --pawsome-ear-l-origin: 42px 22px;
+  --pawsome-ear-r-origin: 68px 22px;
+  --pawsome-head-origin: 56px 30px;
+  --pawsome-figure-origin: 48px 62px;
+  --pawsome-leg-back-origin: 34px 54px;
+  --pawsome-paw-leg-origin: 62px 50px;
+  --pawsome-tail-speed: 0.7s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 115px;
+  height: 80px;
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(36, 28, 59, 0.25));
+  transform-origin: 50% 90%;
+  will-change: left;
+}
+
+#pawsome-root .pawsome-pet.pawsome-cat {
+  --pawsome-tail-origin: 24px 45px;
+  --pawsome-ear-l-origin: 50px 20px;
+  --pawsome-ear-r-origin: 66px 20px;
+  --pawsome-head-origin: 58px 26px;
+  --pawsome-figure-origin: 48px 62px;
+  --pawsome-leg-back-origin: 36px 55px;
+  --pawsome-paw-leg-origin: 58px 52px;
+}
+
+#pawsome-root .pawsome-pet.pawsome-busy {
+  cursor: default;
+}
+
+#pawsome-root .pawsome-pet svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+#pawsome-root .pawsome-pet .pawsome-stage {
+  transform-origin: center;
+}
+
+#pawsome-root .pawsome-pet.pawsome-flip .pawsome-stage {
+  transform: scaleX(-1);
+}
+
+#pawsome-root .pawsome-pet .pawsome-figure {
+  transform-origin: var(--pawsome-figure-origin);
+  transform-box: view-box;
+}
+
+#pawsome-root .pawsome-pet.pawsome-idle .pawsome-figure {
+  animation: pawsome-breathe 2.4s ease-in-out infinite;
+  animation-delay: var(--pawsome-phase, 0s);
+}
+
+#pawsome-root .pawsome-pet .pawsome-tail {
+  transform-origin: var(--pawsome-tail-origin);
+  transform-box: view-box;
+  animation: pawsome-wag var(--pawsome-tail-speed, 0.7s) ease-in-out infinite alternate;
+  animation-delay: var(--pawsome-phase, 0s);
+}
+
+#pawsome-root .pawsome-pet.pawsome-cat .pawsome-tail {
+  animation-name: pawsome-swish;
+}
+
+#pawsome-root .pawsome-pet.pawsome-calm {
+  --pawsome-tail-speed: 0.7s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-excited {
+  --pawsome-tail-speed: 0.16s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-cat.pawsome-calm {
+  --pawsome-tail-speed: 1.4s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-cat.pawsome-excited {
+  --pawsome-tail-speed: 0.45s;
+}
+
+#pawsome-root .pawsome-pet .pawsome-ear-left,
+#pawsome-root .pawsome-pet .pawsome-ear-right {
+  transform-box: view-box;
+}
+
+#pawsome-root .pawsome-pet .pawsome-ear-left {
+  transform-origin: var(--pawsome-ear-l-origin);
+}
+
+#pawsome-root .pawsome-pet .pawsome-ear-right {
+  transform-origin: var(--pawsome-ear-r-origin);
+}
+
+#pawsome-root .pawsome-pet.pawsome-ear-twitch-left .pawsome-ear-left {
+  animation: pawsome-ear-flick 0.3s ease-in-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-ear-twitch-right .pawsome-ear-right {
+  animation: pawsome-ear-flick-r 0.3s ease-in-out;
+}
+
+#pawsome-root .pawsome-pet .pawsome-leg {
+  transform-box: view-box;
+}
+
+#pawsome-root .pawsome-pet .pawsome-leg-back {
+  transform-origin: var(--pawsome-leg-back-origin);
+}
+
+#pawsome-root .pawsome-pet .pawsome-paw-leg {
+  transform-origin: var(--pawsome-paw-leg-origin);
+  transform-box: view-box;
+}
+
+#pawsome-root .pawsome-pet .pawsome-head {
+  transform-origin: var(--pawsome-head-origin);
+  transform-box: view-box;
+  transition: transform 0.28s ease;
+}
+
+#pawsome-root .pawsome-pet.pawsome-look-left .pawsome-head {
+  transform: rotate(-9deg) translateX(-2px);
+}
+
+#pawsome-root .pawsome-pet.pawsome-look-right .pawsome-head {
+  transform: rotate(9deg) translateX(2px);
+}
+
+#pawsome-root .pawsome-pet.pawsome-peek .pawsome-head {
+  transform: rotate(-16deg) translateY(-5px);
+}
+
+#pawsome-root .pawsome-pet .pawsome-eyelid {
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: scaleY(0);
+  transition: transform 0.08s ease;
+}
+
+#pawsome-root .pawsome-pet.pawsome-blink .pawsome-eyelid {
+  transform: scaleY(1);
+}
+
+#pawsome-root .pawsome-pet .pawsome-pupil {
+  transition: transform 0.07s linear;
+}
+
+#pawsome-root .pawsome-pet.pawsome-stretch .pawsome-figure {
+  animation: pawsome-stretch 2s ease-in-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-hop .pawsome-figure {
+  animation: pawsome-hop 0.55s ease-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-roll .pawsome-figure {
+  animation: pawsome-roll 1.1s ease-in-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-paw .pawsome-paw-leg {
+  animation: pawsome-give-paw 0.9s ease-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-paw .pawsome-figure {
+  animation: pawsome-paw-lean 0.9s ease-out;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk .pawsome-figure {
+  animation: pawsome-walk-bob 0.32s ease-in-out infinite;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-figure {
+  animation-duration: 0.5s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk-normal .pawsome-figure {
+  animation-duration: 0.3s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-figure {
+  animation: pawsome-walk-bob 0.16s ease-in-out infinite;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-front {
+  animation: pawsome-leg-f 0.32s ease-in-out infinite;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-back {
+  animation: pawsome-leg-b 0.32s ease-in-out infinite;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-leg-front,
+#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-leg-back {
+  animation-duration: 0.5s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-leg-front,
+#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-leg-back {
+  animation-duration: 0.16s;
+}
+
+#pawsome-root .pawsome-pet.pawsome-chew .pawsome-head {
+  animation: pawsome-chew-head 0.28s ease-in-out 6;
+}
+
+#pawsome-root .pawsome-treat {
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--pawsome-mango);
+  box-shadow: inset 0 0 0 1px rgba(36, 28, 59, 0.12);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+}
+
+#pawsome-root .pawsome-treat.pawsome-treat-show {
+  animation: pawsome-treat-feed 1.5s ease-in forwards;
+}
+
+@keyframes pawsome-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pawsome-wag {
+  from {
+    transform: rotate(-16deg);
+  }
+  to {
+    transform: rotate(22deg);
+  }
+}
+
+@keyframes pawsome-swish {
+  from {
+    transform: rotate(-32deg);
+  }
+  to {
+    transform: rotate(24deg);
+  }
+}
+
+@keyframes pawsome-ear-flick {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-26deg);
+  }
+  70% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes pawsome-ear-flick-r {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(26deg);
+  }
+  70% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes pawsome-stretch {
+  0%,
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  40% {
+    transform: scaleX(1.12) scaleY(0.9) translateY(2px);
+  }
+  70% {
+    transform: scaleX(1.04) scaleY(0.97);
+  }
+}
+
+@keyframes pawsome-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-18px);
+  }
+  55% {
+    transform: translateY(-4px);
+  }
+  70% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pawsome-roll {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-8px) rotate(120deg);
+  }
+  70% {
+    transform: translateY(2px) rotate(280deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes pawsome-give-paw {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  35%,
+  65% {
+    transform: rotate(-55deg) translate(4px, -10px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
+@keyframes pawsome-paw-lean {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  40%,
+  60% {
+    transform: rotate(-6deg) translateX(2px);
+  }
+}
+
+@keyframes pawsome-walk-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pawsome-leg-f {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(16deg);
+  }
+}
+
+@keyframes pawsome-leg-b {
+  0%,
+  100% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes pawsome-chew-head {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes pawsome-treat-feed {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-8px, -18px) scale(1);
+  }
+  55% {
+    opacity: 1;
+    transform: translate(-22px, -28px) scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-28px, -24px) scale(0.4);
+  }
+}

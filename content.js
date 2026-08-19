@@ -1,17 +1,18 @@
 (function () {
-  if (window.__doggoCompanionInjected) return;
-  window.__doggoCompanionInjected = true;
+  if (window.__pawsomeInjected) return;
+  window.__pawsomeInjected = true;
 
   const root = document.createElement("div");
-  root.id = "doggo-companion-root";
+  root.id = "pawsome-root";
   document.documentElement.appendChild(root);
 
-  const dog = window.DoggoDog.createDoggo({ root });
+  const species = Math.random() < 0.5 ? "dog" : "cat";
+  const pet = window.Pawsome.createPet({ root, species });
 
   window.addEventListener(
     "mousemove",
     (e) => {
-      dog.onPointerMove(e.clientX, e.clientY);
+      pet.onPointerMove(e.clientX, e.clientY);
     },
     { passive: true }
   );
@@ -22,10 +23,10 @@
     () => {
       const dy = window.scrollY - lastScrollY;
       lastScrollY = window.scrollY;
-      if (Math.abs(dy) > 4) dog.onScrollBurst();
+      if (Math.abs(dy) > 4) pet.onScrollBurst();
     },
     { passive: true }
   );
 
-  window.addEventListener("resize", () => dog.onResize());
+  window.addEventListener("resize", () => pet.onResize());
 })();
