@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pawsome</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <img src="brand/mark.svg" alt="" width="36" height="36" />
+    <div>
+      <h1>Pawsome</h1>
+      <p>A little pet for every tab.</p>
+    </div>
+  </header>
+
+  <p class="prompt">Choose your companion</p>
+
+  <div class="choices" role="radiogroup" aria-label="Companion">
+    <button type="button" class="choice is-selected" role="radio" data-species="dog" aria-checked="true" tabindex="0">
+      <span class="choice-art" id="dog-art"></span>
+      <span class="choice-label">Dog</span>
+    </button>
+    <button type="button" class="choice" role="radio" data-species="cat" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="cat-art"></span>
+      <span class="choice-label">Cat</span>
+    </button>
+  </div>
+
+  <script src="pawsome-pets.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

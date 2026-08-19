@@ -11,10 +11,12 @@ See [BRAND.md](BRAND.md) for colors, type, logo, and voice.
 3. Click **Load unpacked**
 4. Select this folder
 5. Visit any http(s) website — a Pawsome companion appears at the bottom
+6. Click the toolbar icon to choose dog or cat (applies to every tab)
 
 ## Behavior
 
-- Clip-art dog or cat, chosen at random per page
+- Clip-art dog or cat, chosen in the toolbar popup
+- The same companion appears on every tab
 - Ear twitches and eyes that follow the cursor
 - Roams along the bottom (slow / normal / excited), staying away from the corners
 - Idle: blink, ear twitch, look around, stretch/yawn
@@ -22,6 +24,7 @@ See [BRAND.md](BRAND.md) for colors, type, logo, and voice.
 
 ## Controls
 
+- **Toolbar popup** — pick dog or cat for every tab
 - **Click** — paw five
 - **Double-click** — roll
 - **Shift+click** — treat + chew
