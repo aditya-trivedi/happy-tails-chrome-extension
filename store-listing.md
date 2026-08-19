@@ -25,12 +25,17 @@ Adds a cute animated dog or cat companion to the bottom of websites.
 Pawsome injects a decorative pet overlay onto http and https pages so the companion can appear while you browse. It does not read page content, accounts, or form data, and it does not send anything off the device.
 ```
 
+**Permission justification** (storage):
+```
+Pawsome stores your companion choice (dog or cat) in Chrome sync storage so every tab can show the same pet. This value never leaves your browser profile and is not sent to any server.
+```
+
 ## Detailed description
 
 ```
 Pawsome is a little companion that sits at the bottom of the websites you visit.
 
-A friendly dog or cat — chosen at random — wanders along the bottom of the page, blinks, twitches its ears, and looks toward your cursor. It stays away from the far edges so it does not cover corners or typical site chrome.
+A friendly dog or cat — whichever you pick in the toolbar popup — wanders along the bottom of the page, blinks, twitches its ears, and looks toward your cursor. The same companion appears on every tab. It stays away from the far edges so it does not cover corners or typical site chrome.
 
 Play with it:
 • Click for a paw five
@@ -67,6 +72,13 @@ Take 1–2 extra real screenshots in Chrome after loading the unpacked extension
 - `pawsome-pets.js`
 - `pawsome-engine.js`
 - `pawsome.css`
+- `popup.html`
+- `popup.css`
+- `popup.js`
 - `icons/`
+- `brand/mark.svg`
+- `brand/fonts/Nunito-ExtraBold.ttf`
+- `brand/fonts/Nunito-SemiBold.ttf`
+- `brand/fonts/OFL.txt`
 
-Do **not** include `.git/`, `.venv/`, `README.md`, `BRAND.md`, `preview.html`, `store-listing.md`, `brand/`, or `store-assets/`.
+Do **not** include `.git/`, `.venv/`, `README.md`, `BRAND.md`, `preview.html`, `store-listing.md`, `store-assets/`, or the rest of `brand/`.
