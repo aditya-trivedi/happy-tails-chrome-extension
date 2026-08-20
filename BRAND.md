@@ -24,9 +24,26 @@ Warm dog and cool cat, so the two species read as siblings rather than clones. S
 
 | Token | Hex | Use |
 |---|---|---|
-| `dogCoat` | `#E9A85C` | Dog body and head |
-| `dogShadow` | `#C7802F` | Dog ears, legs, tail, spots |
-| `dogMuzzle` | `#F7D8B4` | Dog snout |
+| `dogCoat` | `#F9931D` | Classic Shiba Inu body, head, tail |
+| `dogShadow` | `#F5871D` | Classic Shiba far legs, tail underside |
+| `dogMuzzle` | `#FDE393` | Classic Shiba mask, chest, inner ears |
+| `dogPaw` | `#FBE495` | Classic Shiba paws |
+| `dogInk` | `#3D1200` | Classic Shiba eyes, nose, mouth, collar |
+| `dogBlush` | `#EE2721` | Classic Shiba cheeks and tongue |
+| `goldenCoat` | `#F4BC40` | Golden retriever body, ears, tail |
+| `goldenShadow` | `#E8A81C` | Golden retriever neck, legs, tail underside |
+| `goldenLight` | `#F8D056` | Golden retriever head |
+| `goldenDeep` | `#D49414` | Golden retriever inner ears |
+| `goldenCream` | `#F6E39A` | Golden retriever chest bib |
+| `goldenMuzzle` | `#F8EBB0` | Golden retriever snout |
+| `goldenPaw` | `#F4BC40` | Golden retriever paws |
+| `goldenBrow` | `#F8D056` | Golden retriever brow highlights |
+| `huskyCoat` | `#4E4E56` | Siberian husky back, cap, ears |
+| `huskyLight` | `#C4C2C0` | Siberian husky tail, far legs |
+| `huskyWhite` | `#EDECEA` | Siberian husky mask, chest, near legs |
+| `huskyIris` | `#8EC9D6` | Siberian husky eyes |
+| `huskyToe` | `#B0AEAC` | Siberian husky toe marks |
+| `huskyInk` | `#11151F` | Siberian husky pupils, nose, mouth |
 | `catCoat` | `#9AA6C4` | Cat body and head |
 | `catShadow` | `#7382A6` | Cat ears, legs, tail |
 | `catMuzzle` | `#E6ECF7` | Cat snout |

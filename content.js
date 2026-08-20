@@ -3,7 +3,7 @@
   window.__pawsomeInjected = true;
 
   const STORAGE_KEY = "pawsomeSettings";
-  const DEFAULT_SETTINGS = { version: 1, species: "dog" };
+  const DEFAULT_SETTINGS = { version: 1, species: "dog", breed: "classic" };
 
   const root = document.createElement("div");
   root.id = "pawsome-root";
@@ -11,29 +11,30 @@
 
   let pet = null;
 
-  function normalizeSpecies(value) {
-    return value === "cat" ? "cat" : "dog";
-  }
-
-  function speciesFromSettings(raw) {
+  function normalizeSettings(raw) {
     const source = raw && typeof raw === "object" ? raw : DEFAULT_SETTINGS;
-    return normalizeSpecies(source.species);
+    const pawsome = window.Pawsome;
+    return {
+      version: 1,
+      species: "dog",
+      breed: pawsome.normalizeBreed(source.breed),
+    };
   }
 
-  function showSpecies(species) {
-    const next = normalizeSpecies(species);
-    if (pet && pet.species === next) return;
+  function showCompanion(settings) {
+    const next = normalizeSettings(settings);
+    if (pet && pet.breed === next.breed) return;
     if (pet) pet.destroy();
-    pet = window.Pawsome.createPet({ root, species: next });
+    pet = window.Pawsome.createPet({ root, species: "dog", breed: next.breed });
   }
 
   function readSettings(callback) {
     try {
       chrome.storage.sync.get({ [STORAGE_KEY]: DEFAULT_SETTINGS }, (result) => {
-        callback(speciesFromSettings(result[STORAGE_KEY]));
+        callback(normalizeSettings(result[STORAGE_KEY]));
       });
     } catch (err) {
-      callback(DEFAULT_SETTINGS.species);
+      callback(DEFAULT_SETTINGS);
     }
   }
 
@@ -41,7 +42,7 @@
     try {
       chrome.storage.onChanged.addListener((changes, area) => {
         if (area !== "sync" || !changes[STORAGE_KEY]) return;
-        showSpecies(speciesFromSettings(changes[STORAGE_KEY].newValue));
+        showCompanion(normalizeSettings(changes[STORAGE_KEY].newValue));
       });
     } catch (err) {
       /* storage unavailable */
@@ -71,6 +72,6 @@
     if (pet) pet.onResize();
   });
 
-  readSettings(showSpecies);
+  readSettings(showCompanion);
   watchSettings();
 })();

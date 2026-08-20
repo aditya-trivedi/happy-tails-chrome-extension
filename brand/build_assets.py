@@ -104,6 +104,10 @@ def write_lockup() -> Path:
 
 LOCKUP_W, LOCKUP_H = 576.09, 116
 PET_W, PET_H = 96, 67
+PET_SIZE = {
+    "dog": (720, 767),
+    "cat": (96, 67),
+}
 
 
 def write_tagline_svg() -> tuple[str, int]:
@@ -173,19 +177,23 @@ def tagline_group(d: str, width: int, x: float, y: float, px: float) -> str:
 
 def mascot_group(name: str, x: float, y: float, scale: float, flip: bool = False) -> str:
     inner = svg_inner(BRAND / f"{name}.svg")
-    flip_t = "scale(-1 1) translate(-96 0)" if flip else ""
+    vw = PET_SIZE.get(name, (PET_W, PET_H))[0]
+    flip_t = f"scale(-1 1) translate(-{vw} 0)" if flip else ""
     return f'<g transform="translate({x} {y}) scale({scale}) {flip_t}">{inner}</g>'
 
 
 def sit_pet(name: str, x: float, floor_y: float, scale: float, prefix: str, flip: bool = False) -> str:
-    w, h = PET_W * scale, PET_H * scale
-    y = floor_y - h + 3 * scale
+    w0, h0 = PET_SIZE.get(name, (PET_W, PET_H))
+    target_h = PET_H * scale
+    s = target_h / h0
+    w, h = w0 * s, h0 * s
+    y = floor_y - h + 3 * s
     cx = x + w / 2
     shadow = (
         f'<ellipse cx="{cx:.1f}" cy="{floor_y + 3:.1f}" rx="{w * 0.40:.1f}" '
-        f'ry="{8 * scale:.1f}" fill="url(#{prefix}-shadow)"/>'
+        f'ry="{8 * s:.1f}" fill="url(#{prefix}-shadow)"/>'
     )
-    return f"{shadow}\n  {mascot_group(name, x, y, scale, flip)}"
+    return f"{shadow}\n  {mascot_group(name, x, y, s, flip)}"
 
 
 def write_promo_small(tag_d: str, tag_w: int) -> Path:
@@ -216,7 +224,7 @@ def write_promo_marquee(tag_d: str, tag_w: int) -> Path:
   {watermark_paw(1080, -40, 420, 0.035)}
   <g transform="translate(108 198) scale(0.92)">{lockup}</g>
   {tagline_group(tag_d, tag_w, 112, 338, 18)}
-  {sit_pet("dog", 820, floor, 2.05, p, False)}
+  {sit_pet("dog", 820, floor, 2.05, p, True)}
   {sit_pet("cat", 1048, floor, 2.05, p, True)}
 </svg>
 '''
@@ -234,7 +242,7 @@ def write_hero(tag_d: str, tag_w: int) -> Path:
   {watermark_paw(860, 80, 520, 0.04)}
   <g transform="translate(96 92) scale(0.90)">{lockup}</g>
   {tagline_group(tag_d, tag_w, 100, 228, 20)}
-  {sit_pet("dog", 318, floor, 2.15, p, False)}
+  {sit_pet("dog", 318, floor, 2.15, p, True)}
   {sit_pet("cat", 790, floor, 2.15, p, True)}
 </svg>
 '''
@@ -253,7 +261,7 @@ def write_screenshot(tag_d: str, tag_w: int) -> Path:
   <g transform="translate(96 72) scale(0.62)">{lockup}</g>
   <rect x="96" y="168" width="56" height="1.5" rx="1" fill="{PALETTE["violet"]}" opacity="0.35"/>
   {tagline_group(tag_d, tag_w, 96, 196, 16)}
-  {sit_pet("dog", 360, floor, 1.9, p, False)}
+  {sit_pet("dog", 360, floor, 1.9, p, True)}
   {sit_pet("cat", 760, floor, 1.9, p, True)}
 </svg>
 '''

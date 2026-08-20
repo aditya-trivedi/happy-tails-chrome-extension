@@ -3,7 +3,7 @@
 
   window.Pawsome = window.Pawsome || {};
 
-  const W = 115;
+  const W = 78;
   const DOUBLE_MS = 280;
 
   const GAITS = {
@@ -39,15 +39,32 @@
     const opts = options || {};
     const host = opts.root;
     const art = window.Pawsome;
-    const species = opts.species === "cat" ? "cat" : "dog";
-    const svgMarkup = opts.svg || (species === "cat" ? art.CAT_SVG : art.DOG_SVG);
-    const defaultMouth = (art.MOUTH && art.MOUTH[species]) || art.MOUTH.dog;
+    const species = "dog";
+    const breed = art.normalizeBreed ? art.normalizeBreed(opts.breed) : "classic";
+    const svgMarkup =
+      opts.svg || (art.svgForCompanion ? art.svgForCompanion(species, breed) : art.DOG_SVG);
+    const defaultMouth =
+      (art.mouthForCompanion && art.mouthForCompanion(species, breed)) ||
+      (art.MOUTH && art.MOUTH[breed]) ||
+      art.MOUTH.dog;
     const mouthPaths = Object.assign({}, defaultMouth, opts.mouthPaths || {});
 
     const pet = document.createElement("div");
-    pet.className = `pawsome-pet pawsome-idle pawsome-calm pawsome-${species}`;
+    pet.className = ["pawsome-pet", "pawsome-idle", "pawsome-calm", "pawsome-dog", `pawsome-${breed}`].join(" ");
     pet.setAttribute("role", "img");
-    pet.setAttribute("aria-label", `Pawsome ${species} companion`);
+    const label =
+      breed === "golden"
+        ? "Pawsome golden retriever companion"
+        : breed === "dachshund"
+          ? "Pawsome dachshund companion"
+          : breed === "husky"
+            ? "Pawsome husky companion"
+            : breed === "labrador"
+              ? "Pawsome black labrador companion"
+              : breed === "shepherd"
+                ? "Pawsome German shepherd companion"
+                : "Pawsome dog companion";
+    pet.setAttribute("aria-label", label);
     pet.style.setProperty("--pawsome-phase", `-${(Math.random() * 2.4).toFixed(2)}s`);
     pet.innerHTML = svgMarkup;
     if (!pet.querySelector(".pawsome-figure")) {
@@ -80,7 +97,8 @@
     }
 
     function maxX() {
-      return Math.max(minX(), window.innerWidth * 0.9 - W);
+      const w = pet.getBoundingClientRect().width || W;
+      return Math.max(minX(), window.innerWidth * 0.9 - w);
     }
 
     function setPos(x) {
@@ -381,6 +399,7 @@
     const api = {
       el: pet,
       species,
+      breed,
       onPointerMove(clientX, clientY) {
         if (destroyed) return;
         lookOverrideUntil = Date.now() + 400;

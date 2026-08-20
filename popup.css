@@ -27,14 +27,14 @@
 }
 
 html {
-  width: 360px;
+  width: 320px;
   background: var(--cream);
 }
 
 body {
   margin: 0;
-  width: 360px;
-  padding: 20px 20px 22px;
+  width: 320px;
+  padding: 14px 12px 16px;
   background: var(--cream);
   color: var(--ink);
   font: 600 14px/1.4 Nunito, system-ui, -apple-system, sans-serif;
@@ -43,43 +43,44 @@ body {
 header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 header img {
   display: block;
-  flex: 0 0 36px;
-  width: 36px;
-  height: 36px;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
 }
 
 header h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--violet-deep);
   line-height: 1.15;
 }
 
 header p {
-  margin: 4px 0 0;
-  font-size: 12px;
+  margin: 3px 0 0;
+  font-size: 11px;
   font-weight: 600;
   color: var(--muted);
 }
 
 .prompt {
-  margin: 0 0 12px;
-  font-size: 13px;
+  margin: 0 0 8px;
+  font-size: 12px;
   font-weight: 800;
   color: var(--ink);
 }
 
 .choices {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
 }
 
 .choice {
@@ -88,12 +89,12 @@ header p {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
   margin: 0;
-  padding: 14px 10px 12px;
+  padding: 8px 4px 7px;
   border: 2px solid rgba(36, 28, 59, 0.08);
-  border-radius: 16px;
+  border-radius: 12px;
   background: #fff;
   color: var(--muted);
   cursor: pointer;
@@ -113,24 +114,23 @@ header p {
 .choice.is-selected {
   border-color: var(--violet);
   color: var(--violet-deep);
-  box-shadow: 0 0 0 3px rgba(108, 76, 224, 0.18);
+  box-shadow: 0 0 0 2px rgba(108, 76, 224, 0.18);
 }
 
 .choice-art {
-  display: block;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   width: 100%;
-  height: 84px;
+  height: 44px;
 }
 
 .choice-art svg {
   display: block;
-  width: 100%;
+  width: auto;
   height: 100%;
+  max-width: 100%;
   overflow: visible;
-}
-
-.choice[data-species="cat"] .choice-art svg {
-  transform: scaleX(-1);
 }
 
 .choice-art .pawsome-eyelid {
@@ -138,7 +138,8 @@ header p {
 }
 
 .choice-label {
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.15;
+  text-align: center;
 }

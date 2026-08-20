@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Pawsome golden retriever. Overlapping cartoon parts. -->
+<svg viewBox="0 0 512 490" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+      <g class="pawsome-stage">
+        <g class="pawsome-figure">
+      <g class="pawsome-tail">
+        <path fill="#F4BC40" stroke="#0A0400" stroke-width="6.2" stroke-linejoin="round" stroke-linecap="round" d="M340 196 C352 160 378 118 410 96 C438 78 474 84 496 110 C510 128 512 158 506 188 C500 216 484 244 462 262 C446 274 424 276 416 262 C430 252 444 236 440 214 C418 236 388 246 362 232 C348 224 336 212 340 196 Z"/>
+        <path fill="#E8A81C" stroke="none" d="M420 130 C452 104 486 112 500 142 C504 168 492 200 470 220 C448 234 430 220 424 196 C442 184 450 160 434 140 C424 144 418 136 420 130 Z"/>
+        <g fill="none" stroke="#0A0400" stroke-width="3.0" stroke-linecap="round">
+          <path d="M430 108 C448 132 454 164 444 196"/>
+          <path d="M456 120 C472 146 476 176 464 206"/>
+          <path d="M408 148 C424 170 428 198 418 220"/>
+        </g>
+      </g>
+
+      <g class="pawsome-leg pawsome-leg-far-back">
+        <ellipse cx="390" cy="358" rx="24" ry="46" fill="#E8A81C" stroke="#0A0400" stroke-width="6.2"/>
+        <g fill="none" stroke="#0A0400" stroke-width="4.4" stroke-linecap="round">
+          <path d="M378 388 Q380 382 380 376"/>
+          <path d="M390 390 Q392 384 392 378"/>
+          <path d="M402 388 Q404 382 404 376"/>
+        </g>
+      </g>
+
+      <g class="pawsome-leg pawsome-leg-far-front">
+        <ellipse cx="296" cy="346" rx="22" ry="42" fill="#E8A81C" stroke="#0A0400" stroke-width="6.2"/>
+        <g fill="none" stroke="#0A0400" stroke-width="4.4" stroke-linecap="round">
+          <path d="M284 372 Q286 368 286 362"/>
+          <path d="M296 374 Q298 370 298 364"/>
+          <path d="M308 372 Q310 368 310 362"/>
+        </g>
+      </g>
+
+      <g class="pawsome-body">
+        <path fill="#F4BC40" stroke="#0A0400" stroke-width="6.2" stroke-linejoin="round" stroke-linecap="round" d="M170 160 C230 152 300 156 348 170 C378 182 396 212 392 252 C388 292 368 328 328 340 C270 356 190 356 132 340 C100 330 86 304 90 274 C78 286 58 280 54 260 C68 258 80 248 78 232 C60 240 44 228 50 208 C66 204 82 192 86 176 C64 182 48 168 58 150 C78 142 112 148 140 154 C150 156 160 158 170 160 Z"/>
+        <path fill="#E8A81C" stroke="none" d="M110 292 C160 332 260 340 350 312 C300 336 190 340 130 312 Z"/>
+        <path fill="#F4BC40" stroke="#0A0400" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round" d="M78 168 C58 176 46 196 52 218 L74 210 C58 228 48 250 66 266 L88 252 C74 272 76 294 100 300 L112 276 C122 292 144 300 162 288 L152 268 C170 278 190 270 196 252 C178 254 164 240 168 222 C184 212 190 190 174 176 C150 184 118 172 78 168 Z"/>
+        <g fill="none" stroke="#0A0400" stroke-width="3.0" stroke-linecap="round">
+          <path d="M90 178 C78 196 82 218 96 232"/>
+          <path d="M112 188 C100 208 106 230 122 242"/>
+          <path d="M134 196 C124 216 130 238 148 246"/>
+          <path d="M154 184 C146 204 152 224 168 230"/>
+        </g>
+      </g>
+
+      <g class="pawsome-leg pawsome-leg-back pawsome-leg-near-back">
+        <ellipse cx="214" cy="368" rx="26" ry="48" fill="#F4BC40" stroke="#0A0400" stroke-width="6.2"/>
+        <g fill="none" stroke="#0A0400" stroke-width="4.4" stroke-linecap="round">
+          <path d="M200 400 Q202 394 202 388"/>
+          <path d="M214 402 Q216 396 216 390"/>
+          <path d="M228 400 Q230 394 230 388"/>
+        </g>
+      </g>
+
+      <g class="pawsome-leg pawsome-leg-front pawsome-paw-leg pawsome-leg-near-front">
+        <ellipse cx="124" cy="356" rx="26" ry="46" fill="#F4BC40" stroke="#0A0400" stroke-width="6.2"/>
+        <g fill="none" stroke="#0A0400" stroke-width="4.4" stroke-linecap="round">
+          <path d="M110 386 Q112 380 112 374"/>
+          <path d="M124 388 Q126 382 126 376"/>
+          <path d="M138 386 Q140 380 140 374"/>
+        </g>
+      </g>
+
+      <g class="pawsome-head">
+        <path fill="#F4BC40" stroke="#0A0400" stroke-width="6.2" stroke-linejoin="round" stroke-linecap="round" d="M72 18 C118 -4 192 -2 236 28 C262 48 270 92 258 134 C248 168 208 192 148 194 C100 194 68 172 54 140 C44 116 46 56 72 18 Z"/>
+        <path fill="#F8D056" stroke="none" d="M100 22 C148 4 198 10 224 36 C206 26 152 18 112 30 Z"/>
+
+        <g class="pawsome-ear pawsome-ear-right">
+          <ellipse cx="250" cy="96" rx="28" ry="46" fill="#F4BC40" stroke="#0A0400" stroke-width="6.2"/>
+          <ellipse cx="250" cy="100" rx="12" ry="26" fill="#D49414"/>
+        </g>
+        <g class="pawsome-ear pawsome-ear-left">
+          <ellipse cx="36" cy="96" rx="28" ry="46" fill="#F4BC40" stroke="#0A0400" stroke-width="6.2"/>
+          <ellipse cx="36" cy="100" rx="12" ry="26" fill="#D49414"/>
+        </g>
+
+        <path fill="#F8EBB0" stroke="none" d="M86 120 C78 146 94 178 128 182 C162 184 182 158 174 130 C166 110 140 106 122 108 C102 110 90 112 86 120 Z"/>
+        <path fill="none" stroke="#0A0400" stroke-width="4.4" stroke-linecap="round" d="M74 80 Q94.6 68 114 82"/>
+        <path fill="none" stroke="#0A0400" stroke-width="4.6" stroke-linecap="round" d="M148 76 Q167.5 62 190 80"/>
+        <path fill="#0A0400" d="M108 116 C94 120 90 138 104 154 C114 166 140 166 148 152 C156 138 148 114 132 114 C122 112 114 112 108 116 Z"/>
+        <ellipse cx="116" cy="128" rx="5.2" ry="2.3" fill="#FFFFFF" opacity="0.38"/>
+        <path fill="none" stroke="#0A0400" stroke-width="5.8" stroke-linecap="round" d="M90 146 Q114 176 131 156 Q150 176 174 142"/>
+        <path class="pawsome-mouth" fill="#3A3A42" d="M114 150 C120 164 128 170 138 164 C146 158 148 150 144 148 C136 160 122 160 114 150 Z"/>
+        <path fill="#FF7A9C" stroke="#0A0400" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" d="M104 168 C102 188 108 210 124 214 C140 216 148 196 146 174 C144 164 134 170 124 170 C114 170 106 164 104 168 Z"/>
+
+        <g class="pawsome-pupil pawsome-pupil-left">
+          <circle cx="94.6" cy="98.1" r="16.8" fill="#0A0400"/>
+          <circle cx="89.2" cy="92.4" r="4.4" fill="#FFFFFF"/>
+          <circle cx="98.6" cy="103.1" r="1.8" fill="#FFFFFF"/>
+        </g>
+        <g class="pawsome-pupil pawsome-pupil-right">
+          <circle cx="167.5" cy="96.8" r="17.4" fill="#0A0400"/>
+          <circle cx="161.9" cy="90.9" r="4.5" fill="#FFFFFF"/>
+          <circle cx="171.7" cy="102.0" r="1.9" fill="#FFFFFF"/>
+        </g>
+        <ellipse class="pawsome-eyelid pawsome-eyelid-left" cx="94.6" cy="98.1" rx="18.8" ry="18.8" fill="#F4BC40"/>
+        <ellipse class="pawsome-eyelid pawsome-eyelid-right" cx="167.5" cy="96.8" rx="19.4" ry="19.4" fill="#F4BC40"/>
+      </g>
+
+        </g>
+
+      </g>
+    </svg>

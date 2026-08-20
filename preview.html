@@ -60,8 +60,8 @@
   </header>
   <article>
     <h2>Preview</h2>
-    <p>A dog and a cat share the bottom of the page. Click for a paw five, double-click to roll, shift-click to offer a treat.</p>
-    <p>This page is a local preview. The shipped extension lets you pick a dog or a cat in the toolbar popup.</p>
+    <p>Six dogs share the bottom of the page. Click for a paw five, double-click to roll, shift-click to offer a treat.</p>
+    <p>This page is a local preview. The shipped extension lets you pick a breed in the toolbar popup.</p>
   </article>
   <script src="pawsome-pets.js"></script>
   <script src="pawsome-engine.js"></script>
@@ -70,13 +70,25 @@
       const root = document.createElement("div");
       root.id = "pawsome-root";
       document.documentElement.appendChild(root);
-      const dog = window.Pawsome.createPet({ root, species: "dog", startX: 220, roam: false });
-      const cat = window.Pawsome.createPet({ root, species: "cat", startX: 620, roam: false });
+      const dog = window.Pawsome.createPet({ root, species: "dog", breed: "classic", startX: 80, roam: false });
+      const golden = window.Pawsome.createPet({ root, species: "dog", breed: "golden", startX: 240, roam: false });
+      const dachshund = window.Pawsome.createPet({ root, species: "dog", breed: "dachshund", startX: 400, roam: false });
+      const husky = window.Pawsome.createPet({ root, species: "dog", breed: "husky", startX: 580, roam: false });
+      const labrador = window.Pawsome.createPet({ root, species: "dog", breed: "labrador", startX: 720, roam: false });
+      const shepherd = window.Pawsome.createPet({ root, species: "dog", breed: "shepherd", startX: 880, roam: false });
       dog.el.classList.remove("pawsome-flip");
-      cat.el.classList.add("pawsome-flip");
+      golden.el.classList.remove("pawsome-flip");
+      dachshund.el.classList.remove("pawsome-flip");
+      husky.el.classList.remove("pawsome-flip");
+      labrador.el.classList.remove("pawsome-flip");
+      shepherd.el.classList.remove("pawsome-flip");
       window.addEventListener("mousemove", (e) => {
         dog.onPointerMove(e.clientX, e.clientY);
-        cat.onPointerMove(e.clientX, e.clientY);
+        golden.onPointerMove(e.clientX, e.clientY);
+        dachshund.onPointerMove(e.clientX, e.clientY);
+        husky.onPointerMove(e.clientX, e.clientY);
+        labrador.onPointerMove(e.clientX, e.clientY);
+        shepherd.onPointerMove(e.clientX, e.clientY);
       }, { passive: true });
     })();
   </script>
