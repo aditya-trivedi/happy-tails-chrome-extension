@@ -464,27 +464,27 @@
     ;
   }
 
-  // Golden — front paws ~505/560; stop clips at y~938 so dachshund ears don't bleed in.
-  const GOLDEN_SVG = wrapSheet("golden", "120 500 580 445", {
-    frame: "M135 535 L210 515 L470 508 L685 525 L698 660 L690 938 L140 938 L125 700 L135 535 Z",
-    tail: ell(188, 668, 52, 92),
-    earL: ell(512, 555, 40, 56),
-    earR: ell(656, 555, 38, 56),
-    head: ell(585, 645, 98, 110),
-    farBack: ell(250, 855, 46, 90),
+  const band = (x0, y0, x1, y1) => `M${x0} ${y0} L${x1} ${y0} L${x1} ${y1} L${x0} ${y1} Z`;
+
+  const GOLDEN_SVG = wrapSheet("golden", "140 487 550 429", {
+    frame: band(132, 482, 696, 916),
+    tail: ell(192, 640, 60, 122),
+    earL: ell(512, 550, 42, 62),
+    earR: ell(656, 550, 40, 62),
+    head: ell(585, 622, 100, 134),
+    farBack: ell(248, 850, 56, 98),
     nearBack: ell(350, 858, 50, 88),
     farFront: ell(505, 848, 52, 92),
-    nearFront: ell(560, 848, 52, 92),
-    body: ell(400, 740, 200, 120),
+    nearFront: ell(570, 840, 68, 104),
+    body: ell(400, 730, 205, 132),
   });
 
-  // Dachshund — frame top under golden paws (~938); keep ear tips (~942+).
-  const DACHSHUND_SVG = wrapSheet("dachshund", "105 938 580 308", {
-    frame: "M118 952 L210 945 L480 942 L675 950 L682 1105 L675 1235 L125 1235 L110 1100 L118 952 Z",
+  const DACHSHUND_SVG = wrapSheet("dachshund", "118 918 556 299", {
+    frame: band(110, 916, 680, 1217),
     tail: ell(158, 1025, 50, 42),
-    earL: ell(518, 985, 36, 50),
-    earR: ell(640, 990, 36, 50),
-    head: ell(590, 1050, 84, 74),
+    earL: ell(516, 980, 44, 60),
+    earR: ell(642, 986, 40, 58),
+    head: ell(588, 1026, 92, 104),
     farBack: ell(230, 1180, 44, 68),
     nearBack: ell(318, 1182, 50, 66),
     farFront: ell(490, 1182, 46, 64),
@@ -492,46 +492,43 @@
     body: ell(375, 1100, 220, 80),
   });
 
-  // Classic — slightly taller body so hip seams seal.
-  const DOG_SVG = wrapSheet("classic", "200 1670 470 385", {
-    frame: "M210 1690 L255 1685 L490 1682 L635 1690 L655 1750 L660 1880 L650 2048 L215 2048 L205 1900 L210 1690 Z",
-    tail: ell(268, 1762, 62, 78),
-    earL: ell(500, 1700, 32, 52),
-    earR: ell(590, 1702, 32, 48),
-    head: ell(555, 1790, 100, 105),
-    farBack: ell(270, 1975, 44, 90),
+  const DOG_SVG = wrapSheet("classic", "213 1670 431 361", {
+    frame: band(205, 1662, 652, 2040),
+    tail: ell(280, 1755, 82, 92),
+    earL: ell(500, 1696, 34, 56),
+    earR: ell(596, 1698, 40, 54),
+    head: ell(555, 1784, 102, 112),
+    farBack: ell(266, 1975, 50, 90),
     nearBack: ell(360, 1978, 46, 88),
     farFront: ell(480, 1980, 44, 86),
-    nearFront: ell(545, 1982, 44, 84),
-    body: ell(410, 1880, 190, 115),
+    nearFront: ell(549, 1982, 50, 84),
+    body: ell(410, 1876, 196, 122),
   });
 
-  // Husky — paws ~276/357/455/516; taller body seal.
-  const HUSKY_SVG = wrapSheet("husky", "155 0 505 508", {
-    frame: "M170 22 L255 8 L480 4 L645 22 L658 200 L650 498 L178 500 L165 250 L170 22 Z",
+  const HUSKY_SVG = wrapSheet("husky", "168 15 480 469", {
+    frame: band(160, 10, 656, 484),
     tail: ell(248, 188, 78, 90),
-    earL: ell(495, 55, 30, 48),
-    earR: ell(575, 58, 28, 48),
-    head: ell(540, 200, 100, 120),
-    farBack: ell(276, 420, 44, 95),
+    earL: ell(495, 52, 34, 54),
+    earR: ell(592, 54, 50, 58),
+    head: ell(542, 178, 104, 158),
+    farBack: ell(258, 420, 64, 100),
     nearBack: ell(355, 425, 50, 92),
     farFront: ell(455, 425, 50, 95),
-    nearFront: ell(516, 428, 50, 92),
-    body: ell(385, 305, 185, 110),
+    nearFront: ell(530, 428, 84, 100),
+    body: ell(390, 305, 225, 118),
   });
 
-  // Shepherd — extend far-back to paw; front ~486/560.
-  const SHEPHERD_SVG = wrapSheet("shepherd", "95 1220 580 472", {
-    frame: "M110 1252 L210 1235 L480 1228 L665 1245 L678 1450 L670 1685 L120 1685 L105 1450 L110 1252 Z",
-    tail: ell(172, 1510, 68, 88),
-    earL: ell(545, 1275, 32, 50),
-    earR: ell(630, 1280, 30, 50),
-    head: ell(585, 1395, 95, 118),
+  const SHEPHERD_SVG = wrapSheet("shepherd", "98 1218 574 447", {
+    frame: band(92, 1218, 678, 1665),
+    tail: ell(178, 1508, 90, 92),
+    earL: ell(543, 1270, 38, 56),
+    earR: ell(634, 1272, 36, 56),
+    head: ell(585, 1390, 98, 128),
     farBack: ell(252, 1595, 52, 108),
     nearBack: ell(350, 1598, 56, 100),
     farFront: ell(486, 1600, 50, 102),
-    nearFront: ell(560, 1602, 50, 100),
-    body: ell(370, 1480, 205, 110),
+    nearFront: ell(566, 1596, 60, 112),
+    body: ell(372, 1470, 210, 124),
   });
 
   const LABRADOR_SVG = `
@@ -581,16 +578,16 @@
       <path d="${ell(390, 430, 230, 260)}"/>
     </clipPath>
     <clipPath id="pawsome-lab-clip-far-back" clipPathUnits="userSpaceOnUse">
-      <path d="${ell(455, 1040, 150, 280)}"/>
+      <path d="${ell(460, 1040, 160, 280)}"/>
     </clipPath>
     <clipPath id="pawsome-lab-clip-near-back" clipPathUnits="userSpaceOnUse">
-      <path d="${ell(810, 1050, 175, 270)}"/>
+      <path d="${ell(815, 1050, 200, 275)}"/>
     </clipPath>
     <clipPath id="pawsome-lab-clip-far-front" clipPathUnits="userSpaceOnUse">
-      <path d="${ell(1185, 1035, 175, 290)}"/>
+      <path d="${ell(1190, 1035, 190, 290)}"/>
     </clipPath>
     <clipPath id="pawsome-lab-clip-near-front" clipPathUnits="userSpaceOnUse">
-      <path d="${ell(1585, 1055, 180, 265)}"/>
+      <path d="${ell(1580, 1055, 195, 265)}"/>
     </clipPath>
     <clipPath id="pawsome-lab-clip-body" clipPathUnits="userSpaceOnUse">
       <path d="${ell(1020, 740, 560, 320)}"/>

@@ -25,7 +25,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 86px;
+  width: 90px;
   height: 75px;
   pointer-events: auto;
   cursor: pointer;
@@ -37,7 +37,7 @@
 }
 
 #pawsome-root .pawsome-pet.pawsome-classic {
-  width: 86px;
+  width: 90px;
   height: 75px;
   --pawsome-tail-origin: 320px 1800px;
   --pawsome-ear-l-origin: 512px 1720px;
@@ -87,7 +87,7 @@
 }
 
 #pawsome-root .pawsome-pet.pawsome-golden {
-  width: 97px;
+  width: 96px;
   height: 75px;
   --pawsome-tail-origin: 210px 640px;
   --pawsome-ear-l-origin: 515px 500px;
@@ -136,13 +136,6 @@
   transform-origin: 560px 805px;
 }
 
-#pawsome-root .pawsome-pet.pawsome-golden.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-golden.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-golden.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-golden.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-golden;
-}
-
 @keyframes pawsome-wag-golden {
   from {
     transform: rotate(-10deg);
@@ -152,18 +145,8 @@
   }
 }
 
-@keyframes pawsome-leg-golden {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(7deg);
-  }
-}
-
 #pawsome-root .pawsome-pet.pawsome-dachshund {
-  width: 143px;
+  width: 140px;
   height: 75px;
   --pawsome-tail-origin: 175px 1020px;
   --pawsome-ear-l-origin: 518px 1020px;
@@ -212,15 +195,8 @@
   transform-origin: 575px 1170px;
 }
 
-#pawsome-root .pawsome-pet.pawsome-dachshund.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-dachshund.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-dachshund.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-dachshund.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-dachshund;
-}
-
 #pawsome-root .pawsome-pet.pawsome-husky {
-  width: 75px;
+  width: 77px;
   height: 75px;
   --pawsome-tail-origin: 300px 240px;
   --pawsome-ear-l-origin: 505px 90px;
@@ -269,15 +245,8 @@
   transform-origin: 516px 375px;
 }
 
-#pawsome-root .pawsome-pet.pawsome-husky.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-husky.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-husky.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-husky.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-husky;
-}
-
 #pawsome-root .pawsome-pet.pawsome-shepherd {
-  width: 90px;
+  width: 96px;
   height: 75px;
   --pawsome-tail-origin: 180px 1500px;
   --pawsome-ear-l-origin: 540px 1290px;
@@ -324,13 +293,6 @@
 
 #pawsome-root .pawsome-pet.pawsome-shepherd .pawsome-leg-near-front {
   transform-origin: 560px 1560px;
-}
-
-#pawsome-root .pawsome-pet.pawsome-shepherd.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-shepherd.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-shepherd.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-shepherd.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-shepherd;
 }
 
 #pawsome-root .pawsome-pet.pawsome-labrador {
@@ -395,29 +357,12 @@
   transform-origin: 860px 780px;
 }
 
-#pawsome-root .pawsome-pet.pawsome-labrador.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-labrador.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-labrador.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-labrador.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-labrador;
-}
-
 @keyframes pawsome-wag-labrador {
   from {
     transform: rotate(-14deg);
   }
   to {
     transform: rotate(16deg);
-  }
-}
-
-@keyframes pawsome-leg-labrador {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(7deg);
   }
 }
 
@@ -487,36 +432,6 @@
   }
   to {
     transform: rotate(14deg);
-  }
-}
-
-@keyframes pawsome-leg-shepherd {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(7deg);
-  }
-}
-
-@keyframes pawsome-leg-husky {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(7deg);
-  }
-}
-
-@keyframes pawsome-leg-dachshund {
-  0%,
-  100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(6deg);
   }
 }
 
@@ -598,21 +513,11 @@
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-ear-left {
-  animation: pawsome-ear-sway-l 0.36s ease-in-out infinite;
+  animation: pawsome-ear-sway-l var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-ear-right {
-  animation: pawsome-ear-sway-r 0.36s ease-in-out infinite;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-ear-left,
-#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-ear-right {
-  animation-duration: 0.5s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-ear-left,
-#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-ear-right {
-  animation-duration: 0.16s;
+  animation: pawsome-ear-sway-r var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-golden.pawsome-walk .pawsome-ear-left {
@@ -700,69 +605,34 @@
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-figure {
-  animation: pawsome-walk-bob 0.32s ease-in-out infinite;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-slow .pawsome-figure {
-  animation-duration: 0.5s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-normal .pawsome-figure {
-  animation-duration: 0.3s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-excited .pawsome-figure {
-  animation: pawsome-walk-bob 0.16s ease-in-out infinite;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk {
-  --pawsome-walk-beat: 0.32s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-slow {
-  --pawsome-walk-beat: 0.5s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-normal {
-  --pawsome-walk-beat: 0.3s;
-}
-
-#pawsome-root .pawsome-pet.pawsome-walk-excited {
-  --pawsome-walk-beat: 0.16s;
+  animation: pawsome-walk-bob calc(var(--pawsome-walk-beat, 0.40s) / 2) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-front {
-  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
+  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-back {
-  animation: pawsome-leg-b var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
+  animation: pawsome-leg-b var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-near-front {
-  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
+  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-far-front {
-  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
-  animation-delay: calc(var(--pawsome-walk-beat, 0.32s) * -0.25);
+  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
+  animation-delay: calc(var(--pawsome-walk-beat, 0.40s) * -0.25);
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-near-back {
-  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
-  animation-delay: calc(var(--pawsome-walk-beat, 0.32s) * -0.5);
+  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
+  animation-delay: calc(var(--pawsome-walk-beat, 0.40s) * -0.5);
 }
 
 #pawsome-root .pawsome-pet.pawsome-walk .pawsome-leg-far-back {
-  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.32s) ease-in-out infinite;
-  animation-delay: calc(var(--pawsome-walk-beat, 0.32s) * -0.75);
-}
-
-#pawsome-root .pawsome-pet.pawsome-classic.pawsome-walk .pawsome-leg-near-front,
-#pawsome-root .pawsome-pet.pawsome-classic.pawsome-walk .pawsome-leg-far-front,
-#pawsome-root .pawsome-pet.pawsome-classic.pawsome-walk .pawsome-leg-near-back,
-#pawsome-root .pawsome-pet.pawsome-classic.pawsome-walk .pawsome-leg-far-back {
-  animation-name: pawsome-leg-shiba;
+  animation: pawsome-leg-f var(--pawsome-walk-beat, 0.40s) ease-in-out infinite;
+  animation-delay: calc(var(--pawsome-walk-beat, 0.40s) * -0.75);
 }
 
 #pawsome-root .pawsome-pet.pawsome-chew .pawsome-head {
@@ -920,20 +790,10 @@
 @keyframes pawsome-leg-f {
   0%,
   100% {
-    transform: rotate(-8deg);
+    transform: rotate(-9deg);
   }
   50% {
-    transform: rotate(9deg);
-  }
-}
-
-@keyframes pawsome-leg-shiba {
-  0%,
-  100% {
-    transform: rotate(-7deg);
-  }
-  50% {
-    transform: rotate(8deg);
+    transform: rotate(10deg);
   }
 }
 
