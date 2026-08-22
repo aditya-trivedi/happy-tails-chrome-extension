@@ -32,12 +32,15 @@ def require_deps() -> None:
         raise SystemExit(1)
 
 
-def svg_inner(path: Path) -> str:
-    text = path.read_text()
-    match = re.search(r"<svg[^>]*>(.*)</svg>", text, re.S)
+def svg_inner_text(markup: str, label: str) -> str:
+    match = re.search(r"<svg[^>]*>(.*)</svg>", markup, re.S)
     if not match:
-        raise ValueError(f"No svg inner content in {path}")
+        raise ValueError(f"No svg inner content in {label}")
     return match.group(1).strip()
+
+
+def svg_inner(path: Path) -> str:
+    return svg_inner_text(path.read_text(), str(path))
 
 
 def text_path(font_path: Path, text: str) -> tuple[str, int]:
@@ -103,7 +106,68 @@ def write_lockup() -> Path:
 
 
 LOCKUP_W, LOCKUP_H = 576.09, 116
-PET_W, PET_H = 96, 67
+
+# Selectable companions from pawsome-pets.js, popup order. Unused brand/*.svg
+# mascot files are not the live art and must not be referenced here.
+LINEUP = ("classic", "golden", "dachshund", "husky", "labrador", "shepherd")
+# Labrador's live viewBox is a full 2048×1365 plate; this is the coat bounds.
+PET_CROP = {
+    "labrador": (220.0, 90.0, 1740.0, 1180.0),
+}
+PETS: dict[str, dict] = {}
+
+
+def load_app_pets() -> None:
+    """Eval the extension's pet module and keep the same SVG markup the app draws."""
+    code = r"""
+const fs = require("fs");
+const vm = require("vm");
+const window = {};
+vm.runInNewContext(fs.readFileSync(process.argv[1], "utf8"), { window });
+const P = window.Pawsome;
+if (!P) throw new Error("window.Pawsome missing");
+const keys = {
+  classic: "DOG_SVG",
+  golden: "GOLDEN_SVG",
+  dachshund: "DACHSHUND_SVG",
+  husky: "HUSKY_SVG",
+  labrador: "LABRADOR_SVG",
+  shepherd: "SHEPHERD_SVG",
+};
+const out = {};
+for (const [name, prop] of Object.entries(keys)) {
+  const svg = P[prop];
+  const match = String(svg).match(/viewBox="([^"]+)"/);
+  if (!match) throw new Error("no viewBox for " + name);
+  const [ox, oy, w, h] = match[1].trim().split(/\s+/).map(Number);
+  out[name] = { svg, ox, oy, w, h };
+}
+process.stdout.write(JSON.stringify(out));
+"""
+    proc = subprocess.run(
+        ["node", "-e", code, str(ROOT / "pawsome-pets.js")],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    loaded = json.loads(proc.stdout)
+    pets: dict[str, dict] = {}
+    for name, data in loaded.items():
+        ox, oy, w, h = data["ox"], data["oy"], data["w"], data["h"]
+        if name in PET_CROP:
+            ox, oy, w, h = PET_CROP[name]
+        pets[name] = {
+            "inner": svg_inner_text(data["svg"], name),
+            "ox": ox,
+            "oy": oy,
+            "w": w,
+            "h": h,
+        }
+    missing = [name for name in LINEUP if name not in pets]
+    if missing:
+        raise RuntimeError(f"Live pet SVG missing for {missing}")
+    PETS.clear()
+    PETS.update(pets)
 
 
 def write_tagline_svg() -> tuple[str, int]:
@@ -172,34 +236,57 @@ def tagline_group(d: str, width: int, x: float, y: float, px: float) -> str:
 
 
 def mascot_group(name: str, x: float, y: float, scale: float, flip: bool = False) -> str:
-    inner = svg_inner(BRAND / f"{name}.svg")
-    flip_t = "scale(-1 1) translate(-96 0)" if flip else ""
-    return f'<g transform="translate({x} {y}) scale({scale}) {flip_t}">{inner}</g>'
+    pet = PETS[name]
+    ox, oy, w0 = pet["ox"], pet["oy"], pet["w"]
+    origin_t = f"translate({-ox} {-oy})" if ox or oy else ""
+    flip_t = f"translate({w0} 0) scale(-1 1)" if flip else ""
+    extras = " ".join(part for part in (flip_t, origin_t) if part)
+    return f'<g transform="translate({x} {y}) scale({scale}) {extras}">{pet["inner"]}</g>'
 
 
-def sit_pet(name: str, x: float, floor_y: float, scale: float, prefix: str, flip: bool = False) -> str:
-    w, h = PET_W * scale, PET_H * scale
-    y = floor_y - h + 3 * scale
+def sit_pet(name: str, x: float, floor_y: float, target_h: float, prefix: str, flip: bool = False) -> str:
+    pet = PETS[name]
+    w0, h0 = pet["w"], pet["h"]
+    s = target_h / h0
+    w = w0 * s
+    y = floor_y - h0 * s + 3 * s
     cx = x + w / 2
     shadow = (
         f'<ellipse cx="{cx:.1f}" cy="{floor_y + 3:.1f}" rx="{w * 0.40:.1f}" '
-        f'ry="{8 * scale:.1f}" fill="url(#{prefix}-shadow)"/>'
+        f'ry="{max(6.0, 8 * s):.1f}" fill="url(#{prefix}-shadow)"/>'
     )
-    return f"{shadow}\n  {mascot_group(name, x, y, scale, flip)}"
+    return f"{shadow}\n  {mascot_group(name, x, y, s, flip)}"
+
+
+def pet_lineup(floor_y: float, prefix: str, left: float, right: float, target_h: float) -> str:
+    widths = [PETS[name]["w"] * (target_h / PETS[name]["h"]) for name in LINEUP]
+    span = right - left
+    total = sum(widths)
+    gap = (span - total) / (len(LINEUP) - 1) if len(LINEUP) > 1 else 0
+    gap = max(2.0, min(gap, 36.0))
+    used = total + gap * (len(LINEUP) - 1)
+    x = left + (span - used) / 2
+    parts = []
+    for name, w in zip(LINEUP, widths):
+        parts.append(sit_pet(name, x, floor_y, target_h, prefix))
+        x += w + gap
+    return "\n  ".join(parts)
 
 
 def write_promo_small(tag_d: str, tag_w: int) -> Path:
     lockup = svg_inner(BRAND / "lockup.svg")
-    scale = 0.56
+    scale = 0.50
     x = (440 - LOCKUP_W * scale) / 2
-    y = 92
-    tag_px = 13
+    y = 48
+    tag_px = 12
     tag_x = (440 - tag_w * (tag_px / 780)) / 2
+    floor = 262
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" width="440" height="280">
-{cozy_field(440, 280, "sm", floor_from=0.78)}
+{cozy_field(440, 280, "sm", floor_from=0.72)}
   {watermark_paw(340, -18, 160, 0.04)}
   <g transform="translate({x:.2f} {y}) scale({scale:.6f})">{lockup}</g>
-  {tagline_group(tag_d, tag_w, tag_x, 188, tag_px)}
+  {tagline_group(tag_d, tag_w, tag_x, 128, tag_px)}
+  {pet_lineup(floor, "sm", 16, 424, 44)}
 </svg>
 '''
     out = BRAND / "promo-small.svg"
@@ -210,14 +297,13 @@ def write_promo_small(tag_d: str, tag_w: int) -> Path:
 def write_promo_marquee(tag_d: str, tag_w: int) -> Path:
     lockup = svg_inner(BRAND / "lockup.svg")
     p = "mq"
-    floor = 488
+    floor = 508
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
 {cozy_field(1400, 560, p, floor_from=0.70)}
   {watermark_paw(1080, -40, 420, 0.035)}
-  <g transform="translate(108 198) scale(0.92)">{lockup}</g>
-  {tagline_group(tag_d, tag_w, 112, 338, 18)}
-  {sit_pet("dog", 820, floor, 2.05, p, False)}
-  {sit_pet("cat", 1048, floor, 2.05, p, True)}
+  <g transform="translate(108 72) scale(0.88)">{lockup}</g>
+  {tagline_group(tag_d, tag_w, 112, 198, 18)}
+  {pet_lineup(floor, p, 40, 1360, 130)}
 </svg>
 '''
     out = BRAND / "promo-marquee.svg"
@@ -234,8 +320,7 @@ def write_hero(tag_d: str, tag_w: int) -> Path:
   {watermark_paw(860, 80, 520, 0.04)}
   <g transform="translate(96 92) scale(0.90)">{lockup}</g>
   {tagline_group(tag_d, tag_w, 100, 228, 20)}
-  {sit_pet("dog", 318, floor, 2.15, p, False)}
-  {sit_pet("cat", 790, floor, 2.15, p, True)}
+  {pet_lineup(floor, p, 48, 1232, 128)}
 </svg>
 '''
     out = BRAND / "hero.svg"
@@ -253,8 +338,7 @@ def write_screenshot(tag_d: str, tag_w: int) -> Path:
   <g transform="translate(96 72) scale(0.62)">{lockup}</g>
   <rect x="96" y="168" width="56" height="1.5" rx="1" fill="{PALETTE["violet"]}" opacity="0.35"/>
   {tagline_group(tag_d, tag_w, 96, 196, 16)}
-  {sit_pet("dog", 360, floor, 1.9, p, False)}
-  {sit_pet("cat", 760, floor, 1.9, p, True)}
+  {pet_lineup(floor, p, 48, 1232, 128)}
 </svg>
 '''
     out = BRAND / "screenshot.svg"
@@ -396,6 +480,7 @@ def main() -> None:
 
     icon_svg = write_icon_svg()
     write_lockup()
+    load_app_pets()
     tag_d, tag_w = write_tagline_svg()
 
     small = write_promo_small(tag_d, tag_w)

@@ -7,23 +7,39 @@
 </head>
 <body>
   <header>
-    <img src="brand/mark.svg" alt="" width="36" height="36" />
+    <img src="brand/mark.svg" alt="" width="32" height="32" />
     <div>
       <h1>Pawsome</h1>
       <p>A little pet for every tab.</p>
     </div>
   </header>
 
-  <p class="prompt">Choose your companion</p>
+  <p class="prompt">Choose a breed</p>
 
-  <div class="choices" role="radiogroup" aria-label="Companion">
-    <button type="button" class="choice is-selected" role="radio" data-species="dog" aria-checked="true" tabindex="0">
-      <span class="choice-art" id="dog-art"></span>
-      <span class="choice-label">Dog</span>
+  <div class="choices" role="radiogroup" aria-label="Dog breed">
+    <button type="button" class="choice is-selected" role="radio" data-breed="classic" aria-checked="true" tabindex="0">
+      <span class="choice-art" id="classic-art"></span>
+      <span class="choice-label">Classic</span>
     </button>
-    <button type="button" class="choice" role="radio" data-species="cat" aria-checked="false" tabindex="-1">
-      <span class="choice-art" id="cat-art"></span>
-      <span class="choice-label">Cat</span>
+    <button type="button" class="choice" role="radio" data-breed="golden" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="golden-art"></span>
+      <span class="choice-label">Golden Retriever</span>
+    </button>
+    <button type="button" class="choice" role="radio" data-breed="dachshund" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="dachshund-art"></span>
+      <span class="choice-label">Dachshund</span>
+    </button>
+    <button type="button" class="choice" role="radio" data-breed="husky" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="husky-art"></span>
+      <span class="choice-label">Husky</span>
+    </button>
+    <button type="button" class="choice" role="radio" data-breed="labrador" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="labrador-art"></span>
+      <span class="choice-label">Labrador</span>
+    </button>
+    <button type="button" class="choice" role="radio" data-breed="shepherd" aria-checked="false" tabindex="-1">
+      <span class="choice-art" id="shepherd-art"></span>
+      <span class="choice-label">German Shepherd</span>
     </button>
   </div>
 

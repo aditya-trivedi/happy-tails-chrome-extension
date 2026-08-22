@@ -3,13 +3,25 @@
 
   window.Pawsome = window.Pawsome || {};
 
-  const W = 115;
+  const W = 78;
   const DOUBLE_MS = 280;
 
+  // Ground speed follows the real stride (~10deg hip swing) so paws don't skate.
+  const STRIDE_PX = {
+    classic: 7.1,
+    golden: 6.2,
+    dachshund: 4.1,
+    husky: 5.6,
+    labrador: 9.5,
+    shepherd: 5.5,
+  };
+  const SLIP = 1.5;
+  const MIN_SPEED = 14;
+
   const GAITS = {
-    slow: { speed: [55, 85], span: [80, 200], weight: 3 },
-    normal: { speed: [110, 160], span: [120, 320], weight: 4 },
-    excited: { speed: [220, 320], span: [180, 480], weight: 2 },
+    slow: { beat: [0.48, 0.62], span: [70, 170], weight: 3 },
+    normal: { beat: [0.36, 0.46], span: [110, 270], weight: 4 },
+    excited: { beat: [0.22, 0.30], span: [150, 380], weight: 2 },
   };
 
   function clamp(n, min, max) {
@@ -39,15 +51,32 @@
     const opts = options || {};
     const host = opts.root;
     const art = window.Pawsome;
-    const species = opts.species === "cat" ? "cat" : "dog";
-    const svgMarkup = opts.svg || (species === "cat" ? art.CAT_SVG : art.DOG_SVG);
-    const defaultMouth = (art.MOUTH && art.MOUTH[species]) || art.MOUTH.dog;
+    const species = "dog";
+    const breed = art.normalizeBreed ? art.normalizeBreed(opts.breed) : "classic";
+    const svgMarkup =
+      opts.svg || (art.svgForCompanion ? art.svgForCompanion(species, breed) : art.DOG_SVG);
+    const defaultMouth =
+      (art.mouthForCompanion && art.mouthForCompanion(species, breed)) ||
+      (art.MOUTH && art.MOUTH[breed]) ||
+      art.MOUTH.dog;
     const mouthPaths = Object.assign({}, defaultMouth, opts.mouthPaths || {});
 
     const pet = document.createElement("div");
-    pet.className = `pawsome-pet pawsome-idle pawsome-calm pawsome-${species}`;
+    pet.className = ["pawsome-pet", "pawsome-idle", "pawsome-calm", "pawsome-dog", `pawsome-${breed}`].join(" ");
     pet.setAttribute("role", "img");
-    pet.setAttribute("aria-label", `Pawsome ${species} companion`);
+    const label =
+      breed === "golden"
+        ? "Pawsome golden retriever companion"
+        : breed === "dachshund"
+          ? "Pawsome dachshund companion"
+          : breed === "husky"
+            ? "Pawsome husky companion"
+            : breed === "labrador"
+              ? "Pawsome black labrador companion"
+              : breed === "shepherd"
+                ? "Pawsome German shepherd companion"
+                : "Pawsome dog companion";
+    pet.setAttribute("aria-label", label);
     pet.style.setProperty("--pawsome-phase", `-${(Math.random() * 2.4).toFixed(2)}s`);
     pet.innerHTML = svgMarkup;
     if (!pet.querySelector(".pawsome-figure")) {
@@ -80,7 +109,8 @@
     }
 
     function maxX() {
-      return Math.max(minX(), window.innerWidth * 0.9 - W);
+      const w = pet.getBoundingClientRect().width || W;
+      return Math.max(minX(), window.innerWidth * 0.9 - w);
     }
 
     function setPos(x) {
@@ -235,13 +265,14 @@
       scrollPeekTimer = setTimeout(() => pet.classList.remove("pawsome-peek"), 700);
     }
 
-    function walkTo(targetX, speedPxPerSec = 140, gait = "normal") {
+    function walkTo(targetX, speedPxPerSec, gait = "normal", beatSec = 0.40) {
       return withBusy(async () => {
         const start = posX;
         const dist = targetX - start;
         if (Math.abs(dist) < 4) return;
         setFacing(dist > 0);
         pet.classList.remove("pawsome-walk-slow", "pawsome-walk-normal", "pawsome-walk-excited");
+        pet.style.setProperty("--pawsome-walk-beat", `${beatSec.toFixed(3)}s`);
         pet.classList.add("pawsome-walk", `pawsome-walk-${gait}`);
         if (gait === "excited") {
           setExcited(Math.max(800, (Math.abs(dist) / speedPxPerSec) * 1000 + 400));
@@ -257,13 +288,7 @@
               return;
             }
             const t = clamp((now - t0) / duration, 0, 1);
-            const eased =
-              gait === "excited"
-                ? t
-                : t < 0.5
-                  ? 2 * t * t
-                  : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            setPos(start + dist * eased);
+            setPos(start + dist * t);
             if (t < 1) requestAnimationFrame(step);
             else resolve();
           }
@@ -290,7 +315,10 @@
         break;
       }
       if (target === null) return false;
-      return walkTo(target, randRange(cfg.speed), gait);
+      const beat = randRange(cfg.beat);
+      const stride = STRIDE_PX[breed] || STRIDE_PX.classic;
+      const speed = Math.max(MIN_SPEED, (stride * SLIP) / beat);
+      return walkTo(target, speed, gait, beat);
     }
 
     async function scheduleRoam() {
@@ -381,6 +409,7 @@
     const api = {
       el: pet,
       species,
+      breed,
       onPointerMove(clientX, clientY) {
         if (destroyed) return;
         lookOverrideUntil = Date.now() + 400;
