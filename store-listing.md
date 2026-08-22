@@ -12,12 +12,12 @@ Paste these into the Developer Dashboard. Do not zip this file or `store-assets/
 
 **Short description** (manifest, 72 characters):
 ```
-A little dog or cat companion that lives at the bottom of every webpage.
+A little dog companion that lives at the bottom of every webpage.
 ```
 
 **Single purpose:**
 ```
-Adds a cute animated dog or cat companion to the bottom of websites.
+Adds a cute animated dog companion to the bottom of websites.
 ```
 
 **Permission justification** (host access):
@@ -27,7 +27,7 @@ Pawsome injects a decorative pet overlay onto http and https pages so the compan
 
 **Permission justification** (storage):
 ```
-Pawsome stores your companion choice (dog or cat) in Chrome sync storage so every tab can show the same pet. This value never leaves your browser profile and is not sent to any server.
+Pawsome stores which companion you picked in Chrome sync storage so every tab can show the same dog. This value never leaves your browser profile and is not sent to any server.
 ```
 
 ## Detailed description
@@ -35,7 +35,7 @@ Pawsome stores your companion choice (dog or cat) in Chrome sync storage so ever
 ```
 Pawsome is a little companion that sits at the bottom of the websites you visit.
 
-A friendly dog or cat — whichever you pick in the toolbar popup — wanders along the bottom of the page, blinks, twitches its ears, and looks toward your cursor. The same companion appears on every tab. It stays away from the far edges so it does not cover corners or typical site chrome.
+Pick a companion in the toolbar popup and a friendly dog wanders along the bottom of the page, blinks, twitches its ears, and looks toward your cursor. The same companion appears on every tab. It stays away from the far edges so it does not cover corners or typical site chrome.
 
 Play with it:
 • Click for a paw five
